@@ -8,11 +8,10 @@ const students = [
 ];
 // map and filter
 
-const filteredStudents = students.filter((student) => student.age > 18);
-const namesOfFilteredStudents = filteredStudents.map((student) => student.name);
+const filteredStudents = students.filter((student) => student.age > 18).map((student) => student.name);
 
 // eslint-disable-next-line no-console
-console.log('Results from filter and Map', namesOfFilteredStudents);
+console.log('Results from filter and Map', filteredStudents);
 
 // Reduce function
 
