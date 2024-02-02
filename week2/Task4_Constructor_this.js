@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
-/* eslint-disable func-names */
 class Car {
   constructor(name, brand, year) {
     this.name = name;
     this.brand = brand;
     this.year = year;
-    this.displayInfo = function () {
-      console.log(`The Name of Car is ${name} which is powered by ${brand} in year ${year}`);
-    };
+  }
+
+  displayInfo() {
+    console.log(`The Name of Car is ${this.name} which is powered by ${this.brand} in year ${this.year}`);
   }
 }
 const CarObj = new Car('Tiago EV', 'TATA', '2022');
