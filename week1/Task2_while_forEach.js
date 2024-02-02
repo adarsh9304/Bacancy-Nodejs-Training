@@ -10,3 +10,7 @@ while (i < arr.length) {
   console.log('!');
   i++;
 }
+
+// Difference bewteeen while loop and forEach loop
+// while loop is general purpose where as forEach is used for array only
+// in while loop we have to handle the control flow where as forEach loop is iterated over all element
