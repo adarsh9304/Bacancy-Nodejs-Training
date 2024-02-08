@@ -1,0 +1,2 @@
+Hello , This is the text which is use for reading from the input.txt and it is using timing functions and promises and through which we will use in async and sync manner
+This is learning of eventloop in javascript
