@@ -1,0 +1,14 @@
+//list of all messages
+GET http://localhost:3000/messages
+
+//create new message
+POST http://localhost:3000/messages
+
+content-Type: application/json
+
+{
+    "content":"Hello Programmers"
+}
+
+// get particular message
+GET http://localhost:3000/messages/1245
