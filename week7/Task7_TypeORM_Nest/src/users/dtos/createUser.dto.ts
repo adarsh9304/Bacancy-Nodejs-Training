@@ -3,5 +3,6 @@ export class CreateUserDto {
   id: number;
   password: string;
   name: string;
-  email:string
+  email:string;
+  contactNumber:string
 }

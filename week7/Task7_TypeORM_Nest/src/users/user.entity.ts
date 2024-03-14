@@ -16,5 +16,8 @@ export class User {
 
      @Column()
     email:string
+
+    @Column()
+    contactNumber:string
   }
   
