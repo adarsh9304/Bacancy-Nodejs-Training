@@ -4,7 +4,7 @@ const User = require('../models/User');
 
 const getCartItems = async (req, res) => {
   try {
-    const userId = req.user.id; // Assuming 'id' is the primary key of the User model
+    const userId = req.user._id;
     const user = await User.findByPk(userId);
 
     if (!user) {
@@ -36,6 +36,7 @@ const getCartItems = async (req, res) => {
 
 const addItemToCart = async (req, res) => {
   try {
+    const { userId } = req.body;
     const productId = req.params.id;
     const product = await Product.findByPk(productId);
 
@@ -44,8 +45,6 @@ const addItemToCart = async (req, res) => {
         message: 'Invalid Product! Please select a valid product.',
       });
     }
-
-    const userId = req.user.id;
 
     const cartItem = await Cart.create({ cartItemsId: productId, cartHolderId: userId });
 
@@ -63,7 +62,7 @@ const addItemToCart = async (req, res) => {
 
 const removeItemFromCart = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user._id;
     const user = await User.findByPk(userId);
 
     if (!user) {

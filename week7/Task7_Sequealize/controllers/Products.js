@@ -1,4 +1,4 @@
-const { Product } = require('../models/Product');
+const Product = require('../models/Product');
 const User = require('../models/User');
 
 const getProducts = async (req, res) => {
@@ -44,8 +44,7 @@ const getProduct = async (req, res) => {
 
 const addProduct = async (req, res) => {
   try {
-    const { productName, productPrice } = req.body;
-    const userId = req.user.id;
+    const { productName, productPrice, userId } = req.body;
 
     if (!productName || !productPrice || !userId) {
       return res.status(400).json({
@@ -76,7 +75,7 @@ const updateProduct = async (req, res) => {
   try {
     const { productName, productPrice } = req.body;
     const Id = req.params.id;
-    const userId = req.user.id;
+    const userId = req.user._id;
 
     const product = await Product.findByPk(Id);
 

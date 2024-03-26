@@ -121,7 +121,7 @@ const loginUser = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     const data = req.body;
-    const Id = req.user.id;
+    const Id = req.user._id;
     const [updatedCount, updatedUser] = await User.update(data, { where: { id: Id }, returning: true });
     if (updatedCount === 0) {
       return res.status(404).json({
@@ -142,7 +142,7 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user._id;
 
     const deletedCount = await User.destroy({ where: { id: userId } });
 

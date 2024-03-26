@@ -1,39 +1,38 @@
+/* eslint-disable no-console */
 const Cart = require('../models/Cart');
-const { Order, Product } = require('../models/Order');
+const Order = require('../models/Order');
+const Product = require('../models/Product');
 const User = require('../models/User');
 
 const processOrder = async (req, res) => {
   try {
-    const userId = req.user.id;
-    const buyer = await User.findByPk(userId);
+    const cartHolderId = req.user._id;
+    const buyer = await User.findByPk(cartHolderId);
 
     if (!buyer) {
       return res.status(404).json({
         message: 'User not found.',
       });
     }
-
-    const userCart = await Cart.findAll({ where: { cartHolderId: userId } });
+    const userCart = await Cart.findAll({ where: { cartHolderId } });
 
     if (userCart.length === 0) {
       return res.status(400).json({
         message: 'Empty Cart! Please add items to your cart before placing an order.',
       });
     }
-
     const cartItemIds = userCart.map((item) => item.cartItemsId);
 
     const cartProducts = await Product.findAll({ where: { id: cartItemIds } });
 
     const order = await Order.create({
-      buyerId: userId,
+      buyerId: cartHolderId,
     });
 
-    // Add products to order concurrently
     const addProductPromises = cartProducts.map((product) => order.addProduct(product));
     await Promise.all(addProductPromises);
 
-    await Cart.destroy({ where: { cartHolderId: userId } });
+    await Cart.destroy({ where: { cartHolderId } });
 
     return res.status(201).json({
       message: 'Order placed successfully.',
@@ -49,7 +48,7 @@ const processOrder = async (req, res) => {
 
 const getOrderHistory = async (req, res) => {
   try {
-    const userId = req.user.id; // Assuming you get the user ID directly from req.user
+    const userId = req.user._id;
     const buyer = await User.findByPk(userId);
     if (!buyer) {
       return res.status(404).json({
